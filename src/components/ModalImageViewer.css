@@ -1,0 +1,105 @@
+/* src/components/ModalImageViewer.css */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-inner {
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  color: white;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 10;
+  display:none;
+}
+
+.modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.nav {
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  color: white;
+  font-size: 38px;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: none ;
+}
+
+.nav:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.modal-image-wrap {
+  max-width: calc(100% - 150px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-image-wrap img {
+  max-width: 100%;
+  max-height: 75vh;
+  border-radius: 12px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+/* Caption centered below image */
+.modal-caption {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #ddd;
+  word-break: break-word;
+}
+
+/* Download button: square with smooth corners */
+.modal-download {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: #10b981;
+  color: white;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  display: none;
+}
+
+.modal-download:hover {
+  transform: scale(1.1);
+}

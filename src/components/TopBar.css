@@ -1,0 +1,81 @@
+/* Flask fixed top-right */
+.flask-fixed {
+  position: fixed;
+  top: 12px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1100;
+}
+
+/* flask icon */
+.flask-icon {
+  color: #0b0b0b; /* black */
+  font-size: 22px;
+  transition: transform 0.25s ease;
+}
+
+/* spinner sits immediately to the right of flask */
+.flask-fixed .spinner-small {
+  margin-left: 6px;
+}
+
+/* pulse animation when loading */
+.pulse {
+  animation: pulseFlask 1.2s ease-in-out infinite;
+}
+
+@keyframes pulseFlask {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.12); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Tabs bar fixed slightly lower and left */
+.tabs-fixed {
+  position: fixed;
+  top: 64px; /* slightly below the flask */
+  left: 28px;
+  z-index: 1050;
+  /* keep tabs grouped and slightly inset */
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.tabs-inner {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ensure button text capitalization */
+.tabs-inner button {
+  text-transform: lowercase; /* as in screenshot */
+  font-weight: 500;
+}
+
+.tabs-fixed {
+  position: fixed;
+  top: 80px; /* increased slightly to give more breathing space */
+  left: 28px;
+  z-index: 1050;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.flask-icon {
+  color: var(--text);
+  transition: color 0.3s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+
+.flask-icon:hover {
+  transform: scale(1.1);
+}

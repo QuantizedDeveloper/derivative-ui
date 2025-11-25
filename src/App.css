@@ -1,0 +1,263 @@
+/* ------------------ CONTENT AREA ------------------ */
+/* ============================
+   THEME VARIABLES
+============================ */
+html[data-theme="light"],
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --card: #ffffff;
+  --muted: #888888;
+}
+
+html[data-theme="dark"] {
+  --bg: #0d0d0d;
+  --text: #f4f4f4;
+  --card: #1a1a1a;
+  --muted: #aaaaaa;
+}
+
+/* ============================
+   GLOBAL BASE STYLES
+============================ */
+body, .app-root {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.4s ease, color 0.4s ease;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ============================
+   CONTENT AREA
+============================ */
+.content-area {
+  background: var(--bg);
+  position: fixed;
+  top: 140px;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
+  padding: 20px 0;
+}
+
+/* Inner wrapper for results */
+.content-wrapper {
+  width: 100%;
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+/* ============================
+   RESULT CARDS
+============================ */
+.result-item {
+  display: block;
+  width: 100%;
+  background: var(--card);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  line-height: 1.5;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.4s ease, color 0.4s ease;
+  cursor: pointer;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.result-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.result-item:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.result-item.highlighted {
+  background-color: rgba(0, 123, 255, 0.08);
+}
+
+/* ============================
+   SOCIAL RESULTS
+============================ */
+.social-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-icon {
+  font-size: 20px;
+  transition: transform 0.15s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+}
+
+.social-result span {
+  color: var(--text);
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ============================
+   EMPTY / LOADING STATE
+============================ */
+.empty-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--muted);
+  min-height: 200px;
+}
+
+/* ============================
+   SKELETON LOADERS
+============================ */
+@keyframes pulseSkeleton {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.skeleton {
+  background: #eee;
+  border-radius: 10px;
+  height: 60px;
+  margin-bottom: 14px;
+  animation: pulseSkeleton 1.2s ease-in-out infinite;
+}
+
+.skeleton:nth-child(1) { animation-delay: 0s; }
+.skeleton:nth-child(2) { animation-delay: 0.1s; }
+.skeleton:nth-child(3) { animation-delay: 0.2s; }
+
+/* ============================
+   INPUT + SEARCH BAR
+============================ */
+.search-input {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: 30px;
+  padding: 10px 16px;
+  outline: none;
+  transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+/* ============================
+   BUTTONS (SEARCH, IMAGES, ETC.)
+============================ */
+.top-btn {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.top-btn:hover {
+  background: var(--muted);
+  color: var(--bg);
+}
+
+.top-btn.active {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* Dark theme adjustments */
+html[data-theme="dark"] .top-btn {
+  background: #1f1f1f;
+  color: #f4f4f4;
+  border-color: #444;
+}
+
+html[data-theme="dark"] .top-btn.active {
+  background: #f4f4f4;
+  color: #111;
+}
+
+/* ============================
+   SEND / ENTER BUTTON
+============================ */
+.send-btn {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.send-btn.active {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ============================
+   FLASK ICON
+============================ */
+.flask-icon {
+  color: var(--text);
+  transition: color 0.4s ease, filter 0.4s ease;
+}
+
+.flask-fixed {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.flask-icon:hover {
+  filter: brightness(1.3);
+}
+
+.study-card {
+  padding: 14px;
+  margin-bottom: 14px;
+  background: #ffffff0d;
+  border-radius: 12px;
+  border: 1px solid #ffffff22;
+}
+
+.study-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #0066ff;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}

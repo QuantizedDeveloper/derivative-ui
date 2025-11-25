@@ -1,0 +1,79 @@
+/* Masonry Container */
+.masonry-grid {
+  column-count: 2 !important;   /* ⬅️ FORCE 2 COLUMNS */
+  column-gap: 14px;
+  padding: 10px;
+}
+
+/* Optional: 1 column on very small screens */
+@media (max-width: 500px) {
+  .masonry-grid {
+    column-count: 1 !important;
+  }
+}
+
+/* Each image card */
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 14px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.masonry-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Image itself */
+.masonry-img {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Title + source labels */
+.img-labels {
+  padding: 9px 12px;
+  text-align: center;
+}
+
+.img-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.img-source {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+/* No images fallback */
+.no-images {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-secondary);
+}
+
+/* Theme Variables */
+:root {
+  --card-bg: #ffffff;
+  --text: #222;
+  --text-secondary: #666;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 3px 12px rgba(0,0,0,0.15);
+}
+
+[data-theme="dark"] {
+  --card-bg: #1d1d1d;
+  --text: #fafafa;
+  --text-secondary: #bbb;
+  --shadow-sm: 0 1px 4px rgba(255,255,255,0.08);
+  --shadow-md: 0 3px 12px rgba(255,255,255,0.12);
+}

@@ -1,0 +1,119 @@
+/* StudiesGrid.css */
+
+.studies-grid {
+  width: 100%;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+  box-sizing: border-box;
+}
+
+.study-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.study-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(180deg, #fafafa, #f3f3f3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.study-thumb-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  text-align: center;
+  padding: 10px;
+  line-height: 1.25;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6; /* limit lines */
+  -webkit-box-orient: vertical;
+}
+
+.download-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.12);
+  width: 40px;
+  height: 34px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #111;
+}
+
+.download-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.download-btn.disabled,
+.download-btn[disabled],
+.download-btn.disabled:hover {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Body */
+.study-body {
+  padding: 12px 14px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.study-title a {
+  color: #0b3d91;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.study-meta {
+  color: #666;
+  font-size: 13px;
+}
+
+.study-source {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #444;
+}
+
+.study-source a {
+  color: #0b3d91;
+  text-decoration: underline;
+}
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .studies-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .study-thumbnail {
+    height: 180px;
+  }
+}

@@ -1,0 +1,206 @@
+import React, { useState, useEffect, useRef } from "react";
+import "./App.css";
+import TopBar from "./components/TopBar";
+import Search from "./components/Search";
+import {
+  FaTwitter,
+  FaReddit,
+  FaYoutube,
+  FaFacebook,
+  FaInstagram,
+} from "react-icons/fa";
+
+function App() {
+  const [selected, setSelected] = useState("search");
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
+    search: [],
+    images: [],
+    studies: [],
+    news: [],
+    shop: [],
+    social: [],
+    videos: [],
+    websites: [],
+  });
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const resultsRef = useRef(null);
+  const lastQueryRef = useRef({ text: "", image: null }); // store last search
+
+  const socialIcons = {
+    Twitter: <FaTwitter color="#1DA1F2" />,
+    Reddit: <FaReddit color="#FF4500" />,
+    YouTube: <FaYoutube color="#FF0000" />,
+    Facebook: <FaFacebook color="#1877F2" />,
+    Instagram: <FaInstagram color="#C13584" />,
+  };
+
+  // --- Fetch mock results for all sections ---
+  const fetchAllForSearch = (text = "", image = null) => {
+    if (!text && !image) return;
+
+    setLoading(true);
+    setHighlightedIndex(-1);
+    lastQueryRef.current = { text, image };
+
+    setTimeout(() => {
+      setData({
+        search: [
+          { text: `Search result for "${text || "the image"}"`, image },
+          { text: `Another search result for "${text || "the image"}"`, image },
+        ],
+        images: image
+          ? [{ text: `Image you searched`, image }]
+          : Array.from({ length: 6 }).map((_, i) => ({
+              text: `Placeholder image ${i + 1} for "${text}"`,
+              image: `https://via.placeholder.com/150?text=Image+${i + 1}`,
+            })),
+        studies: [
+          { text: `Study / paper 1 about "${text || "the image"}"`, image: null },
+          { text: `Study / paper 2 about "${text || "the image"}"`, image: null },
+        ],
+        news: [
+          { text: `News related to "${text || "the image"}"`, image: null },
+          { text: `Another news about "${text || "the image"}"`, image: null },
+        ],
+        shop: [
+          { text: `Product 1 related to "${text || "the image"}"`, image: null },
+          { text: `Product 2 related to "${text || "the image"}"`, image: null },
+        ],
+        social: [
+          { platform: "Twitter", text: `Tweet about "${text || "the image"}"` },
+          { platform: "Reddit", text: `Reddit post about "${text || "the image"}"` },
+          { platform: "YouTube", text: `YouTube video: "${text || "the image"}"` },
+          { platform: "Facebook", text: `Facebook post about "${text || "the image"}"` },
+          { platform: "Instagram", text: `Instagram post about "${text || "the image"}"` },
+        ],
+        videos: [
+          { text: `Video results for "${text || "the image"}"`, image: null },
+        ],
+        websites: [
+          { text: `Websites related to "${text || "the image"}"`, image: null },
+        ],
+      });
+      setLoading(false);
+      setSelected("search"); // default to search tab after search
+    }, 1100);
+  };
+
+  // --- Handle search from Search.js ---
+  const handleSearch = (query) => {
+    if (!query) return;
+    const text = typeof query === "string" ? query : query.text || "";
+    const image = query.image || null;
+
+    fetchAllForSearch(text, image);
+  };
+
+  // --- Handle TopBar selection ---
+  const handleSelect = (section) => {
+    setSelected(section);
+    setHighlightedIndex(-1);
+
+    // If the section has no data yet, fetch based on last query
+    const currentSectionData = data[section] || [];
+    if (currentSectionData.length === 0 && (lastQueryRef.current.text || lastQueryRef.current.image)) {
+      fetchAllForSearch(lastQueryRef.current.text, lastQueryRef.current.image);
+    }
+  };
+
+  const currentData = data[selected] || [];
+
+  // --- Keyboard navigation ---
+  const handleKeyDown = (e) => {
+    if (currentData.length === 0 || loading) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightedIndex((prev) => (prev + 1) % currentData.length);
+      scrollToHighlighted(highlightedIndex + 1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightedIndex((prev) => (prev - 1 + currentData.length) % currentData.length);
+      scrollToHighlighted(highlightedIndex - 1);
+    } else if (e.key === "Enter") {
+      if (highlightedIndex >= 0) {
+        const item = currentData[highlightedIndex];
+        if (selected === "social") {
+          alert(`You selected: ${item.platform}: ${item.text}`);
+        } else {
+          alert(`You selected: ${item.text}`);
+        }
+      }
+    }
+  };
+
+  const scrollToHighlighted = (index) => {
+    if (!resultsRef.current) return;
+    const resultItems = resultsRef.current.querySelectorAll(".result-item");
+    if (resultItems[index]) {
+      resultItems[index].scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  });
+
+  return (
+    <div className="app-root">
+      <TopBar selected={selected} onSelect={handleSelect} loading={loading} />
+
+      <main className="content-area">
+        <div className="content-wrapper" ref={resultsRef}>
+          <div className="content-inner">
+            {loading ? (
+              Array.from({ length: 3 }).map((_, i) => <div key={i} className="skeleton"></div>)
+            ) : currentData.length === 0 ? (
+              <div className="empty-placeholder">No results found</div>
+            ) : (
+              currentData.map((item, i) => {
+                const isHighlighted = i === highlightedIndex;
+
+                if (selected === "social") {
+                  return (
+                    <div
+                      key={i}
+                      className={`result-item social-result ${isHighlighted ? "highlighted" : ""}`}
+                    >
+                      <span className="social-icon">{socialIcons[item.platform]}</span>
+                      <span>{item.text}</span>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      key={i}
+                      className={`result-item ${isHighlighted ? "highlighted" : ""}`}
+                    >
+                      {item.text}
+                      {item.image && (
+                        <img
+                          src={item.image}
+                          alt="result"
+                          style={{ maxWidth: "200px", marginTop: "6px", borderRadius: "8px" }}
+                        />
+                      )}
+                    </div>
+                  );
+                }
+              })
+            )}
+          </div>
+        </div>
+      </main>
+
+      <Search onSearch={handleSearch} />
+
+      <div aria-live="polite" className="sr-only">
+        {loading ? " " : ""}
+      </div>
+    </div>
+  );
+}
+
+export default App;

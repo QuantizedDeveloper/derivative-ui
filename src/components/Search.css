@@ -1,0 +1,124 @@
+/* ------------------ Search Pill ------------------ */
+.search-fixed {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 94%;
+  max-width: 720px;
+  z-index: 1200;
+  display: flex;
+  justify-content: center;
+}
+
+.search-pill {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: var(--card);
+  border-radius: 40px;
+  padding: 10px 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  gap: 8px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  color: var(--text);
+  padding: 6px 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  transition: color 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: var(--muted);
+}
+
+/* ------------------ Left / Right Icons ------------------ */
+.icon-left,
+.right-icon {
+  font-size: 18px;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* ------------------ Send Button ------------------ */
+.send-btn {
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.send-btn.active {
+  background-color: var(--text);
+  color: var(--bg);
+}
+
+.send-btn.disabled {
+  background-color: #ccc;
+  color: var(--muted);
+  cursor: default;
+}
+
+/* ------------------ Clear Button ------------------ */
+.clear-btn {
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--muted);
+  margin-right: 6px;
+  transition: color 0.2s ease;
+}
+
+.clear-btn:hover {
+  color: var(--text);
+}
+
+/* ------------------ Image Preview ------------------ */
+.image-preview-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-image-preview {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  margin-right: 4px;
+}
+
+
+
+/* ------------------ Dark Mode Adjustments ------------------ */
+html[data-theme="dark"] .search-pill {
+  background: #1a1a1a;
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.04);
+}
+
+html[data-theme="dark"] .icon-left,
+html[data-theme="dark"] .right-icon,
+html[data-theme="dark"] .search-input,
+html[data-theme="dark"] .clear-btn {
+  color: var(--text);
+}
