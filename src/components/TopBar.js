@@ -35,8 +35,10 @@ const TopBar = ({ selected, onSelect, loading }) => {
         {loading && <Spinner small />}
       </div>
 
-      <nav className="tabs-fixed" aria-label="Main tabs">
-        <div className="tabs-inner">
+      <div className="topbar-wrapper">
+        <div className="topbar-left"></div>
+
+        <div className="topbar-center">
           {buttons.map((b) => (
             <Button
               key={b}
@@ -46,7 +48,16 @@ const TopBar = ({ selected, onSelect, loading }) => {
             />
           ))}
         </div>
-      </nav>
+      
+        {/*<div
+          className="topbar-right"
+          onClick={toggleTheme}
+          style={{ cursor: "pointer" }}
+        >
+          <FaFlask className={`flask-icon ${loading ? "pulse" : ""}`} />
+          {loading && <Spinner small />}
+        </div>*/}
+      </div>
     </>
   );
 };
